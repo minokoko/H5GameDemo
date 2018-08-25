@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标随意绘画</title>
+    <style type="text/css">
+        canvas{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+<canvas id="box" width="1000" height="600"></canvas>
+</body>
+<script type="text/javascript">
+    var box=document.getElementById('box');
+    var oc=box.getContext('2d');
+    box.onmousedown=function(e){
+        e=e||window.event;
+        var ox=e.clientX-box.offsetLeft;
+        var oy=e.clientY-box.offsetTop;
+        oc.moveTo(ox,oy);
+        document.onmousemove=function(e){
+            var ox1=e.clientX-box.offsetLeft;
+            var oy1=e.clientY-box.offsetTop;
+            oc.lineTo(ox1,oy1);
+            oc.stroke();
+            oc.strokeStyle='red';
+        }
+        document.onmouseup=function(){
+            document.onmousemove=document.onmouseup=null;
+        }
+    }
+</script>
+</html>
